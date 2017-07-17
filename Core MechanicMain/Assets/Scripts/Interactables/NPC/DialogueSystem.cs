@@ -54,6 +54,7 @@ public class DialogueSystem : MonoBehaviour {
         nameText.text = npcName;
         dialoguePanel.SetActive(true);
         thisCamera.DisableMouse();
+        thisCamera.UnlockCursor();
         pController.DisableMove();
     }
 
@@ -68,6 +69,7 @@ public class DialogueSystem : MonoBehaviour {
         {
             dialoguePanel.SetActive(false);
             thisCamera.EnableMouse();
+            thisCamera.LockTheCursor();
             pController.EnableMove();
         }
     }

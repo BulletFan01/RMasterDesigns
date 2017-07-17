@@ -8,8 +8,15 @@ public class HealthItem : ActionItem {
     public override void Interact()
     {
         base.Interact();
-        pController.IncreaseHealth();
+        
         Debug.Log("Interacting with Health Item");
       
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+       
+            Destroy(this.gameObject);
+            pController.IncreaseHealth(35);
     }
 }

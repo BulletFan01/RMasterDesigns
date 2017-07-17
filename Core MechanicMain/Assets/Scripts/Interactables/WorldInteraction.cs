@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class WorldInteraction : MonoBehaviour {
-    NavMeshAgent playerAgent;
+    //NavMeshAgent playerAgent;
     public Transform target;
 
 

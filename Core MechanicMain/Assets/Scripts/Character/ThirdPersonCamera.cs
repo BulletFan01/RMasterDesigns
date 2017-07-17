@@ -25,8 +25,8 @@ public class ThirdPersonCamera : MonoBehaviour {
         mouseEnable = true;
         if (lockCursor)
         {
-          //Cursor.lockState = CursorLockMode.Locked;
-          //Cursor.visible = false;
+          Cursor.lockState = CursorLockMode.Locked;
+          Cursor.visible = false;
         }
     }
 
@@ -53,5 +53,17 @@ public class ThirdPersonCamera : MonoBehaviour {
     public void DisableMouse()
     {
         mouseEnable = false;
+    }
+
+    public void UnlockCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    public void LockTheCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 }

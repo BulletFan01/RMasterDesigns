@@ -51,6 +51,7 @@ public class Stat
     public void Initialize()
     {
         this.MaxValue = maxValue;
-        this.CurrentValue = currentValue;
+        //this.CurrentValue = currentValue;
+        this.CurrentValue = 50;
     }
 }

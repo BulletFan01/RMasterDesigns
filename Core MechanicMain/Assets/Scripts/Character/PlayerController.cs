@@ -83,9 +83,9 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    public void IncreaseHealth()
+    public void IncreaseHealth(float amount)
     {
-        health.CurrentValue += 10;
+        health.CurrentValue += amount;
     }
 
 
@@ -153,6 +153,16 @@ public class PlayerController : MonoBehaviour {
     public void DisableMove()
     {
         moveEnable = false;
+        Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        Vector2 inputDirection = input.normalized;
+
+        bool running = false;
+
+        Move(inputDirection, running);
+
+        //animation
+        float animationSpeedPercent = ((running) ? currentSpeed / runSpeed : currentSpeed / walkSpeed * .5f);
+        animator.SetFloat("SpeedPercent", animationSpeedPercent, speedSmoothTime, Time.deltaTime);
     }
 
 }
