@@ -5,8 +5,10 @@ using UnityEngine;
 public class NPC : MonoBehaviour
 {
     public string[] dialogue;
+    public string[] dialogue1;
     public string npcName;
     bool tookHealth = false;
+    bool finished = false;
 
 	/*public override void Interact()
     {
@@ -22,6 +24,14 @@ public class NPC : MonoBehaviour
     {     
         if(!tookHealth)
             DialogueSystem.Instance.AddNewDialogue(dialogue, npcName);
+        else
+        {
+            if (!finished)
+            {
+                DialogueSystem.Instance.AddNewDialogue(dialogue1, npcName);
+                finished = true;
+            }
+        }
        // Interact();
     }
 }

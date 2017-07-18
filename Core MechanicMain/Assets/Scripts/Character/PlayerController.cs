@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class PlayerController : MonoBehaviour {
@@ -34,15 +35,33 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     private Stat health;
 
+    //OPENING UP INVENTORY
+    public GameObject InventoryPanel;
+    public Button giveBtn;
+    public ThirdPersonCamera thisCamera;
+    //Text dialogueText, nameText;
+
     private void Awake()
     {
         health.Initialize();
+        
+        giveBtn.onClick.AddListener(delegate { ExitInventory(); });
+        InventoryPanel.SetActive(false);
+    }
+
+    public void ExitInventory()
+    {
+        InventoryPanel.SetActive(false);
+        thisCamera.EnableMouse();
+        thisCamera.LockTheCursor();
+        EnableMove();
     }
 
     void Start () {
         //CONTROLLING THE CHARACTER
         animator = GetComponent<Animator>();
         cameraT = Camera.main.transform;
+        
 
         controller = GetComponent<CharacterController>();
 
@@ -79,6 +98,15 @@ public class PlayerController : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.E))
             {
                 health.CurrentValue += 10;
+            }
+
+            //OPENING UP INVENTORY
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                InventoryPanel.SetActive(true);
+                thisCamera.DisableMouse();
+                thisCamera.UnlockCursor();
+                DisableMove();
             }
         }
     }

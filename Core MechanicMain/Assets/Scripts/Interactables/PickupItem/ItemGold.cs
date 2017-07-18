@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickupItem : Interactable {
+public class ItemGold : Interactable {
 
     public override void Interact()
     {
-        Debug.Log("Interacting with Item");
+        Debug.Log("Interacting with Item Gold");
     }
 }
