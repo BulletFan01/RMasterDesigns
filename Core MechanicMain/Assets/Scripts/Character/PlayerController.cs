@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-    public AudioClip bump, jump;
+    public AudioClip healthSound, jump;
 
     //CONTROLLING THE CHARACTER
     public float walkSpeed = 2.3f;
@@ -85,6 +85,7 @@ public class PlayerController : MonoBehaviour {
 
     public void IncreaseHealth(float amount)
     {
+        AudioSource.PlayClipAtPoint(healthSound, transform.position, 0.8f);
         health.CurrentValue += amount;
     }
 
@@ -106,7 +107,7 @@ public class PlayerController : MonoBehaviour {
 
         controller.Move(velocity * Time.deltaTime);
         currentSpeed = new Vector2(controller.velocity.x, controller.velocity.z).magnitude;
-
+        
         if (controller.isGrounded)
         {
             velocityY = 0;
@@ -139,12 +140,6 @@ public class PlayerController : MonoBehaviour {
         return smoothTime / airControlPercent;
     }
 
-    //DETECT COLLISIONS WITH OBJECTS
-    void OnCollisionEnter(Collision collision)
-    {
-       AudioSource.PlayClipAtPoint(bump, transform.position);
-    }
-
     public void EnableMove()
     {
         moveEnable = true;
@@ -156,13 +151,32 @@ public class PlayerController : MonoBehaviour {
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         Vector2 inputDirection = input.normalized;
 
-        bool running = false;
 
-        Move(inputDirection, running);
+        //Move(inputDirection, running);
+        if (inputDirection != Vector2.zero)
+        {
+            float targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.y) * Mathf.Rad2Deg + cameraT.eulerAngles.y;
+            transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref turnSmoothVelocity, GetModifiedSmoothTime(turnSmoothTime));
+        }
+
+        currentSpeed = 0;
+        velocityY += Time.deltaTime * gravity;
+
+        Vector3 velocity = transform.forward * currentSpeed + Vector3.up * velocityY;
+
+        controller.Move(velocity * Time.deltaTime);
+   
+        currentSpeed = 0;
+        if (controller.isGrounded)
+        {
+            velocityY = 0;
+        }
+
+
 
         //animation
-        float animationSpeedPercent = ((running) ? currentSpeed / runSpeed : currentSpeed / walkSpeed * .5f);
-        animator.SetFloat("SpeedPercent", animationSpeedPercent, speedSmoothTime, Time.deltaTime);
+
+        animator.SetFloat("SpeedPercent", 0, 0, Time.deltaTime);
     }
 
 }

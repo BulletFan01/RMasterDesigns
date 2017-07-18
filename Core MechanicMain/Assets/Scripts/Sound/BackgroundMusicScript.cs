@@ -5,6 +5,8 @@ using UnityEngine;
 public class BackgroundMusicScript : MonoBehaviour {
 
     public AudioClip background;
+    public AudioClip backgroundMusic;
+
 
     new AudioSource audio;
 
@@ -18,6 +20,8 @@ public class BackgroundMusicScript : MonoBehaviour {
 		if(audio.isPlaying == false)
         {
             audio.clip = background;
+            audio.Play();
+            audio.clip = backgroundMusic;
             audio.Play();
         }
 	}

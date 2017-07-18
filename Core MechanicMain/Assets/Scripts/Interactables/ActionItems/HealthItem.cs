@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class HealthItem : ActionItem {
     public PlayerController pController;
+    public NPC npc;
 
     public override void Interact()
     {
@@ -18,5 +19,6 @@ public class HealthItem : ActionItem {
        
             Destroy(this.gameObject);
             pController.IncreaseHealth(35);
+            npc.TookHealth();
     }
 }

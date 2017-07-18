@@ -44,7 +44,7 @@ public class DialogueSystem : MonoBehaviour {
         dialogueLines.AddRange(lines);
         npcName = name;
         dialogueIndex = 0;
-        Debug.Log(dialogueLines.Count);
+        //Debug.Log(dialogueLines.Count);
         CreateDialogue();
     }
 
